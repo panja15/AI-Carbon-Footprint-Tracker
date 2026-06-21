@@ -8,15 +8,21 @@ This project is built purely in JavaScript, adhering to strict clean architectur
 
 ## Key Features
 
-1. **Daily Footprint Logging:** Track travel distance, meal types, electricity usage, and shopping spend.
-2. **India-Specific Calculations:** Uses customized carbon factors and comparisons tuned specifically to India (e.g. CNG auto rickshaws, Delhi Metro data, national grid averages).
-3. **What-If Lifestyle Simulator:** Proactively estimate carbon savings by substituting high-emission transport with eco-friendly alternatives.
-4. **Predictive Carbon Forecast:** Project monthly and annual carbon outputs using running daily averages compared against national benchmarks.
-5. **Eco-Score Grade:** View a letter grade card (A+ to F) indicating how your daily carbon footprints stack up against India's average.
-6. **Streak Tracker:** Maintain consistency with a consecutive daily logging streak badge shown in the header.
-7. **AI Usage Awareness:** Understand the carbon, water, and electrical footprints of utilizing AI resources.
-8. **Gemini AI Coach:** Get personalized, rate-limited coaching advice rendered in formatted Markdown, tailored with Indian context.
-9. **Accessibility First (♿):** High contrast theme, keyboard skip link, screen-reader semantic tags, and accessible table data visualization alternatives.
+1. **User Authentication (Supabase Auth):** Complete registration, login (Email + Password and Google OAuth), password recovery, and secure JWT-based backend session validation using dynamic JWKS public key rotation.
+2. **AI Sustainability Audit (Dual-Method Onboarding):**
+   - **Conversational Audit:** A step-by-step onboarding experience talking with EcoAI to estimate your carbon footprint baseline.
+   - **Traditional Form Audit:** A structured, accessible questionnaire categorizing travel, diet, and power metrics.
+3. **Google Maps Journey Carbon Planner:** Enter any Origin and Destination to retrieve live route segments, distances, and travel durations. Calculates and compares the carbon emissions of travel options (Car, Bus, Metro, Auto, Walk/Bicycle) using deterministic emission factors.
+4. **Carbon Twin (Current vs. Future You):** A visual comparison modeling your lifestyle changes side-by-side (Current You vs. Future You) backed by a Gemini-generated eco-narrative projecting real-world impacts.
+5. **OCR Receipt Scanner:** Upload a shopping receipt to extract item descriptions and costs via Google Cloud Vision OCR. Categorizes items automatically and estimates carbon footprints based on item types.
+6. **Decision Engine Chat:** Chat with an interactive eco-conscious buying assistant to get advice on products, energy efficiencies, and purchasing tradeoffs.
+7. **Daily Activity Logging:** Quick-log daily transportation, meals, electricity, and shopping activities.
+8. **India-Specific Calculations:** Engineered using carbon emission factors specifically tuned for India (CNG auto-rickshaws, Delhi Metro averages, and National Grid CEA statistics).
+9. **What-If Lifestyle Simulator:** Proactively simulate carbon offsets by swapping commute options or shopping habits.
+10. **Predictive Carbon Forecast:** Project future monthly and annual emissions based on running historical logs.
+11. **Streak & Eco-Grade:** Track consecutive logging days to build green habits, accompanied by a letter-grade card (A+ to F) benchmarking your footprint.
+12. **AI Usage Awareness:** A dedicated dashboard widget detailing the environmental footprint (water, electricity, and CO2 emissions) incurred by using the app's AI models.
+13. **Accessibility First (♿):** High contrast mode, keyboard skip navigation, semantic ARIA structures, and accessible data tables.
 
 ---
 
@@ -161,8 +167,6 @@ These factors (sourced from `SKILLS.md` and `emissionFactors.js`) are the single
    ```
 4. Open the application in your browser (typically [http://localhost:3001](http://localhost:3001) if port 3000 is occupied).
 
----
-
 ## Running Tests
 
 ### Backend Unit & Integration Tests
@@ -175,6 +179,9 @@ npm test
 - `src/tests/calculation.test.js`: Validates calculation service outputs.
 - `src/tests/emissionFactors.test.js`: Asserts exact factors matching requirements for transportation modes, food, electricity, and shopping.
 - `src/tests/whatIfSimulator.test.js`: Checks simulation savings and zero-saving conditions.
+- `src/tests/auth.test.js`: Validates token verification, legacy/compatibility modes, and default user provisioning.
+- `src/tests/journey.test.js`: Verifies Maps planner route logic, emissions factoring, and AI coaching.
+- `src/tests/expansion.test.js`: Integration testing for Onboarding Audits, Carbon Twins, Decision Engine, and Receipt scanner APIs.
 - `src/tests/api.test.js`: Integration tests for endpoints, sync databases, and profiles.
 
 ### Frontend Component & Utility Tests
@@ -186,7 +193,9 @@ npm test
 **Test Files:**
 - `src/tests/ecoScore.test.js`: Unit tests verifying that Eco-Score letter grades match the emission averages.
 - `src/tests/streak.test.js`: Verifies consecutive logging days, gap resets, and day-one logic.
-- `src/tests/dashboard.test.js` & `src/tests/Dashboard.test.jsx`: Assert rendering of core dashboards, onboarding steps, Eco-Score card, streak badges, and AI Usage Awareness collapsible widgets.
+- `src/tests/Dashboard.test.jsx` & `src/tests/dashboard.test.js`: Assert rendering of core dashboards, onboarding steps, Eco-Score card, streak badges, and AI Usage Awareness collapsible widgets.
+- `src/tests/JourneyPlanner.test.jsx`: Tests the interactive Google Maps Journey Planner interface.
+- `src/tests/expansion.test.jsx`: Validates conversational audits, carbon twin layouts, receipt file selectors, and decision engines.
 
 ---
 
