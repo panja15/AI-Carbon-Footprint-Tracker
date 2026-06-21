@@ -10,7 +10,7 @@ async function getSupabasePublicKey(kid) {
   const now = Date.now();
   if (!jwksCache || now - jwksFetchTime > CACHE_TTL) {
     try {
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dvyohojgkhbdztrgvmxc.supabase.co';
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
       const url = `${supabaseUrl.replace(/\/$/, '')}/auth/v1/.well-known/jwks.json`;
       const res = await fetch(url);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -42,7 +42,7 @@ export async function requireAuth(req, res, next) {
 
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const token = authHeader.split(' ')[1];
-      
+
       if (process.env.NODE_ENV === 'test' && token === 'test-token') {
         userId = req.query.user_id || req.body.user_id || 'test-user-id';
       } else {
@@ -92,7 +92,7 @@ export async function requireAuth(req, res, next) {
     } else {
       // Compatibility fallback for tests and unauthenticated routes (like initial session checks)
       userId = req.query.user_id || req.body.user_id;
-      
+
       // If we're not in test mode, and there's no query user_id, it's unauthorized
       if (process.env.NODE_ENV !== 'test' && !userId) {
         return res.status(401).json({
